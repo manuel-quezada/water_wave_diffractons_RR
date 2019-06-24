@@ -1,0 +1,2 @@
+mpiexec -np 32 parun --TwoPhaseFlow -f gaussian_2D.py --path "./../" -l5 -v -F -O ./../petsc.options.asm -C "final_time=30.0 dt_output=0.1 Lx=60.0 bA=0.5 mwl=0.75 A=0.05 sig2=2.0 he=0.005 structured=False"
+#mpiexec -np 32 parun --TwoPhaseFlow -f gaussian_2D.py --path "./../" -l5 -v -F -O ./../petsc.options.asm -C "final_time=30.0 dt_output=0.1 Lx=100.0 bA=0.0 mwl=0.75 A=0.05 sig2=2.0 he=0.005 structured=False"
