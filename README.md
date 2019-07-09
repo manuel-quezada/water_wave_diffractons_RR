@@ -2,7 +2,7 @@
 This repository is meant for reproducibility of the paper **Solitary water waves created by variations in bathymetry**.
 
 ## About the paper.
-* A pre-print can be found here XX.
+* A pre-print can be found here: ....
 
 ## Organization of the repository
 The repository has the following main folders:

@@ -39,102 +39,34 @@ def plot_FEM_frame(x,y,phi,frame,fig,title=''):
 
 if True:
     #################
-    # var=2, bA=0.5 #
-    #################
-    FEM_frame='var2_bA0p50'
-    (xFEM,yFEM,phi) = get_FEM_data_frame(FEM_frame)
-    fig = pl.figure(figsize=(16,8))
-    ax = fig.add_subplot(111)
-    ax.set_aspect(aspect=1)
-    pl.contour(xFEM,yFEM-0.5,phi,[0],linewidths=3.5)
-    pl.ylim([0., 0.9])
-    pl.xlim([10., 15.0])
-    pl.yticks([0.0,0.25,0.5,0.75,0.9])
-    pl.gca().tick_params(axis="y", labelsize=25)
-    pl.gca().tick_params(axis="x", labelsize=25)
-    pl.savefig('var2_bA0p5.png',bbox_inches="tight")
-    pl.close(fig)
-
-    ##################
-    # var=2, bA=0.25 #
-    ##################
-    FEM_frame='var2_bA0p250'
-    (xFEM,yFEM,phi) = get_FEM_data_frame(FEM_frame)
-    fig = pl.figure(figsize=(16,8))
-    ax = fig.add_subplot(111)
-    ax.set_aspect(aspect=1)
-    pl.contour(xFEM,yFEM-0.25,phi,[0],linewidths=3.5)
-    pl.ylim([0.25, 0.9])
-    pl.xlim([14., 19.0])
-    pl.yticks([0.0,0.25,0.5,0.75,0.9])
-    pl.gca().tick_params(axis="y", labelsize=25)
-    pl.gca().tick_params(axis="x", labelsize=25)
-    pl.savefig('var2_bA0p25.png',bbox_inches="tight")
-    pl.close(fig)
-
-    #################
-    # var=2, bA=0.0 #
-    #################
-    FEM_frame='var2_bA0p00'
-    (xFEM,yFEM,phi) = get_FEM_data_frame(FEM_frame)
-    fig = pl.figure(figsize=(16,8))
-    ax = fig.add_subplot(111)
-    ax.set_aspect(aspect=1)
-    pl.contour(xFEM,yFEM,phi,[0],linewidths=3.5)
-    pl.ylim([0., 0.9])
-    pl.xlim([16., 21.0])
-    pl.yticks([0.0,0.25,0.5,0.75,0.9])
-    pl.gca().tick_params(axis="y", labelsize=25)
-    pl.gca().tick_params(axis="x", labelsize=25)
-    pl.savefig('var2_bA0p0.png',bbox_inches="tight")
-    pl.close(fig)
-
-    #################
     # var=4, bA=0.5 #
     #################
     FEM_frame='var4_bA0p50'
     (xFEM,yFEM,phi) = get_FEM_data_frame(FEM_frame)
-    fig = pl.figure(figsize=(16,8))
+    fig = pl.figure(figsize=(16,12))
     ax = fig.add_subplot(111)
     ax.set_aspect(aspect=1)
     pl.contour(xFEM,yFEM-0.5,phi,[0],linewidths=3.5)
     pl.ylim([0.5, 0.9])
-    pl.xlim([11., 16.0])
-    pl.yticks([0.0,0.25,0.5,0.75,0.9])
+    pl.xlim([10., 15.0])
+    pl.yticks([0.0,0.5,0.9])
     pl.gca().tick_params(axis="y", labelsize=25)
     pl.gca().tick_params(axis="x", labelsize=25)
     pl.savefig('var4_bA0p5.png',bbox_inches="tight")
     pl.close(fig)
     
     #################
-    # var=4, bA=0.25 #
-    #################
-    FEM_frame='var4_bA0p250'
-    (xFEM,yFEM,phi) = get_FEM_data_frame(FEM_frame)
-    fig = pl.figure(figsize=(16,8))
-    ax = fig.add_subplot(111)
-    ax.set_aspect(aspect=1)
-    pl.contour(xFEM,yFEM-0.25,phi,[0],linewidths=3.5)
-    pl.ylim([0.25, 0.9])
-    pl.xlim([15., 20.])
-    pl.yticks([0.0,0.25,0.5,0.75,0.9])
-    pl.gca().tick_params(axis="y", labelsize=25)
-    pl.gca().tick_params(axis="x", labelsize=25)
-    pl.savefig('var4_bA0p25.png',bbox_inches="tight")
-    pl.close(fig)
-
-    #################
     # var=4, bA=0.0 #
     #################
     FEM_frame='var4_bA0p00'
     (xFEM,yFEM,phi) = get_FEM_data_frame(FEM_frame)
-    fig = pl.figure(figsize=(16,8))
+    fig = pl.figure(figsize=(16,12))
     ax = fig.add_subplot(111)
     ax.set_aspect(aspect=1)
     pl.contour(xFEM,yFEM,phi,[0],linewidths=3.5)
     pl.ylim([0.0, 0.9])
-    pl.xlim([17., 22.0])
-    pl.yticks([0.0,0.25,0.5,0.75,0.9])
+    pl.xlim([15., 20.0])
+    pl.yticks([0.0,0.5,0.9])
     pl.gca().tick_params(axis="y", labelsize=25)
     pl.gca().tick_params(axis="x", labelsize=25)
     pl.savefig('var4_bA0p0.png',bbox_inches="tight")
@@ -143,10 +75,10 @@ if True:
 
 if False:
     #################
-    # var=2, bA=0.5 #
+    # var=4, bA=0.5 #
     #################
     for t in [0,1,2,3,4,5,6,7]:
-        FEM_frame='var2_bA0p5_t'+str(t)+'0'
+        FEM_frame='var4_bA0p5_t'+str(t)+'0'
         (xFEM,yFEM,phi) = get_FEM_data_frame(FEM_frame)
         fig = pl.figure(figsize=(16,8))
         ax = fig.add_subplot(111)
@@ -157,6 +89,6 @@ if False:
         pl.yticks([0.0,0.25,0.5,0.75,0.9])
         pl.gca().tick_params(axis="y", labelsize=25)
         pl.gca().tick_params(axis="x", labelsize=25)
-        pl.savefig('var2_bA0p5_t'+str(t)+'.png',bbox_inches="tight")
+        pl.savefig('var4_bA0p5_t'+str(t)+'.png',bbox_inches="tight")
         pl.close(fig)
 

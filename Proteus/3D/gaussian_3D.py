@@ -19,10 +19,10 @@ opts= Context.Options([
     ("final_time",8.0,"Final time for simulation"),
     ("dt_output",0.1,"Time interval to output solution"),
     ("A",0.35,"amplitude"),
-    ("sig2",2.0,"variance"),
+    ("sig2",4.0,"variance"),
     ("Lx",20,"Length of the domain in x"),
     ("Ly",0.3,"Length of the domain in y"),
-    ("Lz",1.0,"Length of the domain in y"),
+    ("Lz",1.25,"Length of the domain in y"),
     ("bA", 0.0, "bathymetry A"),
     ("bB", 0.5, "bathymetry B"),
     ("slipOnBottom",False,"Slip Boundary condition on bottom?"),
@@ -45,7 +45,7 @@ wx=2.0
 bA=opts.bA
 bB=opts.bB
 
-# About initial condition 
+# About initial condition
 mwl=0.55
 A=opts.A
 sig2=opts.sig2
@@ -67,23 +67,28 @@ he = opts.he
 boundaries=['left','right','bottom','top','front','back',]
 boundaryTags=dict([(key,i+1) for (i,key) in enumerate(boundaries)])
 bt = boundaryTags
-vertices=[[0.,-Ly/2.,bA],      #0
-          [Lx,-Ly/2.,bA],      #1
-          [Lx,0.,bA],          #2
-          [Lx,0.,bB],          #3
-          [Lx,Ly/2.,bB],       #4
-          [0.,Ly/2.,bB],       #5
-          [0.,0.,bB],          #6
-          [0.,0.,bA],          #7
+vertices=[[0.,-Ly/2.,bA],        #0
+          [Lx,-Ly/2.,bA],        #1
+          [Lx,0.,bA],            #2
+          [Lx,0.,bB],            #3
+          [Lx,Ly/2.,bB],         #4
+          [0.,Ly/2.,bB],         #5
+          [0.,0.,bB],            #6
+          [0.,0.,bA],            #7
           #
-          [0.,-Ly/2.,Lz],      #8
-          [wx,-Ly/2.,Lz],      #9
-          [wx,-Ly/2.,0.9*Lz], #10
-          [Lx,-Ly/2.,0.9*Lz], #11
-          [Lx,Ly/2.,0.9*Lz],  #12
-          [wx,Ly/2.,0.9*Lz],  #13
-          [wx,Ly/2.,Lz],       #14
-          [0.,Ly/2.,Lz]]       #15
+          [0.,-Ly/2.,Lz],    #8
+          [wx,-Ly/2.,Lz],    #9
+          [2*wx,-Ly/2.,1.0*Lz],    #10
+          [Lx-2*wx,-Ly/2.,1.0*Lz], #11
+          [Lx-wx,-Ly/2.,Lz], #12
+          [Lx,-Ly/2.,Lz],    #13
+          #
+          [Lx,Ly/2.,Lz],     #14
+          [Lx-wx,Ly/2.,Lz],  #15
+          [Lx-2*wx,Ly/2.,1.0*Lz],  #16
+          [2*wx,Ly/2.,1.0*Lz],     #17
+          [wx,Ly/2.,Lz],     #18
+          [0.,Ly/2.,Lz]]     #19
 vertexFlags=[boundaryTags['bottom'], #0
              boundaryTags['bottom'], #1
              boundaryTags['bottom'], #2
@@ -99,18 +104,37 @@ vertexFlags=[boundaryTags['bottom'], #0
              boundaryTags['top'],    #12
              boundaryTags['top'],    #13
              boundaryTags['top'],    #14
-             boundaryTags['top']]     #15
+             boundaryTags['top'],    #15
+             boundaryTags['top'],    #16
+             boundaryTags['top'],    #17
+             boundaryTags['top'],    #18
+             boundaryTags['top']]    #19
+
 facets=[[[0,1,2,7],[7,2,3,6],[6,3,4,5]], #bottom
-        [[0,1,11,10,9,8]],         #front        
-        [[1,2,3,4,12,11]],    #right
-        [[4,5,15,14,13,12]],       #back
-        [[5,6,7,0,8,15]],    #left
-        [[15,8,9,14],[14,9,10,13],[13,10,11,12]]]       #top
+        [[0,1,13,12,11,10,9,8]],         #front
+        [[1,2,3,4,14,13]],               #right
+        [[4,5,19,18,17,16,15,14]],       #back
+        [[5,6,7,0,8,19]],                #left
+        [[19,8,9,18]],   # top
+        [[18,9,10,17]],  # top
+        [[17,10,11,16]], # top
+        [[15,16,11,12]], # top
+        [[15,12,13,14]]] # top
+#facets=[[[0,1,2,7],[7,2,3,6],[6,3,4,5]], #bottom
+#        [[0,1,11,10,9,8]],         #front
+#        [[1,2,3,4,12,11]],    #right
+#        [[4,5,15,14,13,12]],       #back
+#        [[5,6,7,0,8,15]],    #left
+#        [[15,8,9,14],[14,9,10,13],[13,10,11,12]]]       #top
 facetFlags=[boundaryTags['bottom'],
             boundaryTags['front'],
             boundaryTags['right'],
             boundaryTags['back'],
             boundaryTags['left'],
+            boundaryTags['top'],
+            boundaryTags['top'],
+            boundaryTags['top'],
+            boundaryTags['top'],
             boundaryTags['top']]
 regions=[[0.5*wx,0.1*Ly,0.5*(Lz-max(bA,bB))+max(bA,bB)]]
 regionFlags=[0]
@@ -141,7 +165,7 @@ class clsvof_init_cond(object):
         z=X[2]
         eta = mwl + A*np.exp(-x**2/(2*sig2))
         return z-eta
-        
+
 # ******************************* #
 # ***** BOUNDARY CONDITIONS ***** #
 # ******************************* #
@@ -353,3 +377,6 @@ myTpFlowProblem.physical_parameters['gravity'] = [0.0,0.0,-9.8]
 myTpFlowProblem.clsvof_parameters['disc_ICs']=False
 myTpFlowProblem.rans3p_parameters['ns_forceStrongDirichlet']=True
 myTpFlowProblem.rans3p_parameters['ARTIFICIAL_VISCOSITY'] = 3 #based on smoothness indicator
+
+# clsvof #
+myTpFlowProblem.clsvof_parameters['lambdaFact'] = 10.0
